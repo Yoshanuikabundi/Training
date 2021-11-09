@@ -4,6 +4,7 @@
 
 ## We generally follow the style of:
 [ACS Style Guide](https://pubs.acs.org/doi/full/10.1021/acsguide.50101) (which unfortunately lives behind a paywall; at a later date we should port summaries of key insights here), see especially:
+- *American English* (American English is the de facto standard for the web and the explicit standard for most journals)
 - *Effective writing* (Section 5.1) (use direct, declarative sentences, often in active voice!)
 - *General style conventions* (Section 5.3) -- Editorial style (hyphenation, capitalization, modifiers, etc.)
 - *Grammar, spelling, and punctuation* (Section 5.2)
@@ -72,21 +73,31 @@ We often use LaTeX (e.g. Overleaf) for writing papers. Some LaTeX-specific tips 
 
 ## Writing documentation for software
 
+Google publishes useful and extensive [guidelines](https://developers.google.com/style) for documentation style. 
+
+- [Highlights](https://developers.google.com/style/highlights)
+- [Accessibility](https://developers.google.com/style/accessibility)
+- [Global audience](https://developers.google.com/style/translation)
+- [Voice and tone](https://developers.google.com/style/accessibility)
+
+In addition:
+
 - **Tone**: Aim for a friendly, conversational, clear tone. 
     + Software documentation does not need to be as formal in tone as a paper
         * You can end sentences in prepositions if you want to.
         * It's OK to freely split infinitives.
         * Prefer active voice to passive voice.
     + Avoid slang - documentation should be accessible to as wide a readership as possible
-- **Living document**: Unlike a paper, documentation is easy to update if we find readers are commonly making the same misinterpretations. This means we can err on the side of clarity in the clarity/correctness trade-off.
+- **Living document**: Unlike a paper, documentation is easy to update if we find a common misinterpretation. This means that we can err on the side of clarity in the clarity/correctness trade-off.
+- **Tests**: Incorrect documentation is worse than no documentation at all. Implement automated tests for as much of your documentation as you can.
 - **Links**: Use hyperlinks liberally.
     + Use links to...
         * Provide detail on technical terms for unfamiliar readers
         * Acknowledge other writing or software projects
         * Connect related parts of documentation that are separated by the flow of prose
     + Make a link out of your natural prose where possible, rather than saying "click here"
-    + *Always* link to the API reference of a method or object the first time you introduce it in a page's prose.
-- **Check output**: Always do a final proof read on the rendered output, not on the markup. This will let you spot syntax errors and other incorrectly rendered documentation
+    + *Always* link to the API reference of a method or object the first time that you introduce it in a page's prose.
+- **Check output**: Always do a final proofread on the rendered output, not on the markup. This will let you spot syntax errors and other incorrectly rendered documentation
 - **The software does things**: When describing a behavior or principle of the software, write as though the software is an agent that does things rather than a product produced by the developers. Prefer making the software the subject of a sentence rather than the developers
     + "When input is ambiguous, the toolkit should raise an error rather than guess" rather than "When input is ambiguous, we always try to raise an error rather than guess"
         * It's nice/polite to include the reader whenever we use the word "we". If "we" is the dev team, this excludes the reader.
@@ -114,8 +125,13 @@ We often use LaTeX (e.g. Overleaf) for writing papers. Some LaTeX-specific tips 
 
 ## Git Friendliness
 
-Git's line-based diffing algorithm is great for code, but doesn't play very nicely with prose. There are three strategies for dealing with this:
+Git's line-based diffing algorithm is great for code, but doesn't play very nicely with prose. 
+There are three strategies for dealing with this:
 
+- **Break at sentence boundaries**: This strategy introduces a line break at the end of every sentence, and a double break at the end of paragraphs.
+This establishes an analogy between sentences and lines of code, but usually doesn't look great in raw form.
+It does, however, produce very clean diffs, as changes to a sentence only include that sentence in the diff, and not the following sentences.
+For this reason, we prefer this style, especially for research papers.
 - **Use hard-wrapping; break at <= 80 characters**: This strategy introduces
     hard line breaks at word boundaries if a word would run over 80
     characters line width. This can be a bit of a pain to write in editors
@@ -123,13 +139,10 @@ Git's line-based diffing algorithm is great for code, but doesn't play very nice
     editor. Paragraph breaks involve a double line break. Diffs usually
     include the remainder of the paragraph after the spot where a change
     occurred, but small changes can be isolated to a single line.
-- **Use soft-wrapping and break at paragraph boundaries.**: This strategy uses your text editor's line wrap functionality to wrap text. It's easy to write and doesn't require any post-processing, but can be problematic when viewed without soft-wrapping. With this strategy, git diffs include the entire paragraph surrounding any changes, and multiple changes to a paragraph will be rendered as a single diff.
-- **Break at sentence boundaries**: This strategy introduces a line break at the end of every sentence, and a double break at the end of paragraphs.
-This establishes an analogy between sentences and lines of code, but usually doesn't look great.
-It does, however, produce very clean diffs, as changes to a sentence only include that sentence in the diff, and not the following sentences.
+- **Use soft-wrapping and break at paragraph boundaries.**: This strategy uses your text editor's line wrap functionality to wrap text. It's easy to write and doesn't require any post-processing, but can be problematic when viewed without soft-wrapping. With this strategy, git diffs include the entire paragraph surrounding any changes, and multiple changes to a paragraph will be rendered as a single diff. This can make diffs extremely difficult to read.
 
 ## Other Reminders:
-- **Report uncertainties with one significant digit of precision**. Round the associated value to the correct precision based on the uncertainty. For example, “3.247 +/- 0.134” becomes “3.2+/-0.1”, and “0.3247 +/- 0.0134” becomes “0.32+/-0.01”, etc. Deal with the uncertainty first, then round the value accordingly.
+- **Report uncertainties with one significant digit of precision**. Round the associated value to the correct precision based on the uncertainty. For example, “3.247 +/- 0.134” becomes “3.2±0.1”, and “0.3247 +/- 0.0134” becomes “0.32±0.01”, etc. Deal with the uncertainty first, then round the value accordingly.
 - **Render values as number-space-unit** 7.8 mm, not 7.8mm. Prefer SI units over non-SI alternatives. Uncertainties go before units: 31.4±0.9 kJ/mol.
 - **Use dashes correctly**
     - hyphen `-` "-": Separates compound words and words broken over a line-break
